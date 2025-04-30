@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pdmtaller2.KarinaPerez_00125123.views.components.BottomBar
+import com.pdmtaller2.KarinaPerez_00125123.views.components.TitleComponent
 
 @Composable
 fun SearchScreen(
@@ -19,6 +20,12 @@ fun SearchScreen(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TitleComponent(
+                title = "Search",
+                modifier = Modifier.padding(16.dp)
+            )
+        },
         bottomBar = {
             BottomBar(
                 modifier = Modifier.padding(16.dp),

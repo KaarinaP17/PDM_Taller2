@@ -29,6 +29,46 @@ import com.pdmtaller2.KarinaPerez_00125123.views.components.BottomBar
 import com.pdmtaller2.KarinaPerez_00125123.views.components.TitleComponent
 import coil.compose.AsyncImage
 
+val restaurants = listOf(
+    Restaurant(
+        id = 1,
+        name = "Pizza Planet",
+        description = "Las mejores pizzas del universo",
+        imageURL = "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        category = listOf("Pizzas", "Comida Italiana", "Vegetariano"),
+        menu = listOf(
+            Dish(
+                id = 1,
+                name = "Pizza Pepperoni",
+                description = "Clásica pizza con pepperoni y queso.",
+                imageURL = "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ),
+            Dish(
+                id = 2,
+                name = "Pizza Vegetariana",
+                description = "Pizza saludable con verduras frescas.",
+                imageURL = "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            )
+        )
+    ),
+    Restaurant(
+        id = 2,
+        name = "Burger King Kong",
+        description = "Las hamburguesas más monstruosas",
+        imageURL = "https://images.pexels.com/photos/1251198/pexels-photo-1251198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        category = listOf("Hamburguesas", "Comida Rápida"),
+        menu = listOf(
+            Dish(
+                id = 1,
+                name = "Burger Clásico",
+                description = "Hamburguesa con carne jugosa y queso.",
+                imageURL = "https://images.pexels.com/photos/1251198/pexels-photo-1251198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" +
+                        ""
+            )
+        )
+    )
+)
+
 @Composable
 fun Restaurants(
     onRestaurant: () -> Unit = {},
@@ -36,45 +76,6 @@ fun Restaurants(
     onSearch: () -> Unit = {},
     onDish: (Restaurant) -> Unit = {}
 ) {
-    val restaurants = listOf(
-        Restaurant(
-            id = 1,
-            name = "Pizza Planet",
-            description = "Las mejores pizzas del universo",
-            imageURL = "https://example.com/pizza.jpg",
-            category = listOf("Pizzas", "Comida Italiana", "Vegetariano"),
-            menu = listOf(
-                Dish(
-                    id = 1,
-                    name = "Pizza Pepperoni",
-                    description = "Clásica pizza con pepperoni y queso.",
-                    imageURL = "https://example.com/pepperoni.jpg"
-                ),
-                Dish(
-                    id = 2,
-                    name = "Pizza Vegetariana",
-                    description = "Pizza saludable con verduras frescas.",
-                    imageURL = "https://example.com/veggie.jpg"
-                )
-            )
-        ),
-        Restaurant(
-            id = 2,
-            name = "Burger King Kong",
-            description = "Las hamburguesas más monstruosas",
-            imageURL = "https://example.com/burger.jpg",
-            category = listOf("Hamburguesas", "Comida Rápida"),
-            menu = listOf(
-                Dish(
-                    id = 1,
-                    name = "Burger Clásico",
-                    description = "Hamburguesa con carne jugosa y queso.",
-                    imageURL = "https://example.com/burgerclassico.jpg"
-                )
-            )
-        )
-    )
-
     Scaffold(
         topBar = { TitleComponent(title = "FootSpot") },
         bottomBar = {
@@ -109,7 +110,9 @@ fun Restaurants(
             }
             restaurants.filter { it.category.contains("Comida Italiana") }.forEach { restaurant ->
                 item {
-                    RestaurantRow(restaurants = restaurants)
+                    RestaurantRow(restaurants = restaurants){
+                        onDish(it)
+                    }
                 }
             }
         }
@@ -117,21 +120,23 @@ fun Restaurants(
 }
 
 @Composable
-fun RestaurantRow(restaurants: List<Restaurant>) {
+fun RestaurantRow(restaurants: List<Restaurant>, onRestaurant: (Restaurant) -> Unit = {}) {
     Column(modifier = Modifier.padding(8.dp)) {
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(restaurants) { restaurant ->
-                RestaurantCard(restaurant)
+                RestaurantCard(restaurant){
+                    onRestaurant(restaurant)
+                }
             }
         }
     }
 }
 
 @Composable
-fun RestaurantCard(restaurant: Restaurant) {
+fun RestaurantCard(restaurant: Restaurant, onRestaurant: (Restaurant) -> Unit = {}) {
     Card(
         modifier = Modifier
             .width(150.dp)
@@ -158,7 +163,7 @@ fun RestaurantCard(restaurant: Restaurant) {
             Text(text = restaurant.description, style = MaterialTheme.typography.bodySmall)
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(onClick = { }) {
+            Button(onClick = { onRestaurant(restaurant) }) {
                 Text(text = "Navegar a tienda")
             }
         }

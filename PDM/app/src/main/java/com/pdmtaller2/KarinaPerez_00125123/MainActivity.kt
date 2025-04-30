@@ -1,5 +1,6 @@
 package com.pdmtaller2.KarinaPerez_00125123
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ import com.pdmtaller2.KarinaPerez_00125123.views.DishScreen
 import com.pdmtaller2.KarinaPerez_00125123.views.MyOrdersScreen
 import com.pdmtaller2.KarinaPerez_00125123.views.Restaurants
 import com.pdmtaller2.KarinaPerez_00125123.views.SearchScreen
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 
 class MainActivity : ComponentActivity() {
@@ -32,7 +34,12 @@ class MainActivity : ComponentActivity() {
                         Restaurants(
                             onRestaurant = { navController.navigate("restaurants") },
                             onMyOrders = { navController.navigate("orders") },
-                            onSearch = { navController.navigate("search") }
+                            onSearch = { navController.navigate("search") },
+                            onDish = { restaurant ->
+                                val dishJson = Json.encodeToString(restaurant)
+                                val encoded = Uri.encode(dishJson)
+                                navController.navigate("restaurantDetail/$encoded")
+                            }
                         )
                     }
                     composable("orders") {
