@@ -1,4 +1,4 @@
-package com.pdmtaller2.KarinaPerez_00125123.views.components
+package  com.pdmtaller2.KarinaPerez_00125123.views.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
