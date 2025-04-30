@@ -140,7 +140,7 @@ fun RestaurantCard(restaurant: Restaurant, onRestaurant: (Restaurant) -> Unit = 
     Card(
         modifier = Modifier
             .width(150.dp)
-            .height(200.dp),
+            .height(220.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = Color.LightGray)
@@ -164,7 +164,7 @@ fun RestaurantCard(restaurant: Restaurant, onRestaurant: (Restaurant) -> Unit = 
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(onClick = { onRestaurant(restaurant) }) {
-                Text(text = "Navegar a tienda")
+                Text(text = "ir a tienda")
             }
         }
     }
