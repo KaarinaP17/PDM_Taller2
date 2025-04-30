@@ -1,6 +1,20 @@
 package com.pdmtaller2.KarinaPerez_00125123.views.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.pdmtaller2.KarinaPerez_00125123.data.Dish
 import com.pdmtaller2.KarinaPerez_00125123.views.SearchScreen
@@ -17,7 +31,7 @@ fun DishCard(
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(8.dp),
-        elevation = 4.dp
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
             modifier = Modifier
@@ -35,33 +49,24 @@ fun DishCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Nombre del platillo
             Text(
                 text = name,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
 
-            // Descripción breve del platillo
             Text(
                 text = description,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // Botón de agregar
             Button(
-                onClick = onAddClick,
+                onClick = { onAddClick },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(text = "Agregar")
             }
         }
     }
-}
-
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun DishPreview() {
-    Dish("hola", "hola", "hola") {}
 }

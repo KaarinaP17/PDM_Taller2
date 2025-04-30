@@ -1,7 +1,22 @@
 package com.pdmtaller2.KarinaPerez_00125123.views.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun SearchBar(
@@ -12,7 +27,7 @@ fun SearchBar(
     placeholder: String = "Buscar..."
 ) {
     TextField(
-        value = query,
+        value = text,
         onValueChange = onTextChange,
         modifier = modifier
             .fillMaxWidth()
@@ -22,7 +37,7 @@ fun SearchBar(
             Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
         },
         trailingIcon = {
-            if (query.isNotEmpty()) {
+            if (text.isNotEmpty()) {
                 IconButton(onClick = { onTextChange("") }) {
                     Icon(imageVector = Icons.Default.Close, contentDescription = "Clear Icon")
                 }
@@ -30,18 +45,8 @@ fun SearchBar(
         },
         singleLine = true,
         shape = RoundedCornerShape(16.dp),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = MaterialTheme.colorScheme.surface,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
+        colors = TextFieldDefaults.colors(),
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { onSearch()})
-        )
-}
-
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun SearchBarPreview(){
-    SearchBar()
+        keyboardActions = KeyboardActions(onSearch = { onSearch() })
+    )
 }
