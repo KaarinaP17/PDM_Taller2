@@ -62,7 +62,12 @@ class MainActivity : ComponentActivity() {
                     ) { backStackEntry ->
                         val data = backStackEntry.arguments?.getString("restaurant") ?: ""
                         val restaurant = Json.decodeFromString<Restaurant>(data)
-                        DishScreen(restaurant)
+                        DishScreen(
+                            restaurant = restaurant,
+                            onRestaurant = { navController.navigate("restaurants") },
+                            onMyOrders = { navController.navigate("orders") },
+                            onSearch = { navController.navigate("search") }
+                        )
                     }
                 }
             }

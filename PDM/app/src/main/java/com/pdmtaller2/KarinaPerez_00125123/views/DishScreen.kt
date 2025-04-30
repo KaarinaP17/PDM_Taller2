@@ -36,7 +36,9 @@ fun DishScreen(restaurant: Restaurant, onRestaurant: ()->Unit = {}, onMyOrders: 
         },
         topBar = {
             TitleComponent(
-                title = restaurant.name
+                title = restaurant.name,
+                needBack = true,
+                onBack = onRestaurant
             )
         }
     ) { innerPadding ->
