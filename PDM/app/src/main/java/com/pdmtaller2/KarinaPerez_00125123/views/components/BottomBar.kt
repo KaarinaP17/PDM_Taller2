@@ -1,5 +1,6 @@
 package com.pdmtaller2.KarinaPerez_00125123.views.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,23 +22,32 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun BottomBar(modifier: Modifier = Modifier) {
+fun BottomBar(modifier: Modifier = Modifier, onHome: ()->Unit = {}, onSearch: ()->Unit = {}, onMyOrders: ()->Unit = {}) {
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
-        BottomBarItem(icon = Icons.Filled.Home, label = "Home")
-        BottomBarItem(icon = Icons.Filled.Search, label = "Search")
-        BottomBarItem(icon = Icons.Filled.ShoppingCart, label = "My Orders")
+        BottomBarItem(icon = Icons.Filled.Home, label = "Home"){
+            onHome()
+        }
+        BottomBarItem(icon = Icons.Filled.Search, label = "Search"){
+            onSearch()
+        }
+        BottomBarItem(icon = Icons.Filled.ShoppingCart, label = "My Orders"){
+            onMyOrders()
+        }
     }
 }
 
 @Composable
-fun BottomBarItem(icon: ImageVector, label: String) {
+fun BottomBarItem(icon: ImageVector, label: String, onClick: ()->Unit= {}) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.clickable{
+            onClick()
+        }
     ) {
         Icon(
             imageVector = icon,

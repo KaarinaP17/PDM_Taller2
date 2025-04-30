@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +30,12 @@ import com.pdmtaller2.KarinaPerez_00125123.views.components.TitleComponent
 import coil.compose.AsyncImage
 
 @Composable
-fun Restaurants() {
+fun Restaurants(
+    onRestaurant: () -> Unit = {},
+    onMyOrders: () -> Unit = {},
+    onSearch: () -> Unit = {},
+    onDish: (Restaurant) -> Unit = {}
+) {
     val restaurants = listOf(
         Restaurant(
             id = 1,
@@ -71,7 +77,14 @@ fun Restaurants() {
 
     Scaffold(
         topBar = { TitleComponent(title = "FootSpot") },
-        bottomBar = { BottomBar() }
+        bottomBar = {
+            BottomBar(
+                modifier = Modifier.padding(16.dp),
+                onHome = onRestaurant,
+                onSearch = onSearch,
+                onMyOrders = onMyOrders
+            )
+        }
     ) { innerPadding ->
         LazyColumn(modifier = Modifier.padding(innerPadding)) {
             item {
@@ -83,7 +96,7 @@ fun Restaurants() {
             }
             restaurants.filter { it.category.contains("Comida Rápida") }.forEach { restaurant ->
                 item {
-                    RestaurantRow(restaurant = restaurant)
+                    RestaurantRow(restaurants = restaurants)
                 }
             }
 
@@ -96,7 +109,7 @@ fun Restaurants() {
             }
             restaurants.filter { it.category.contains("Comida Italiana") }.forEach { restaurant ->
                 item {
-                    RestaurantRow(restaurant = restaurant)
+                    RestaurantRow(restaurants = restaurants)
                 }
             }
         }
@@ -104,19 +117,14 @@ fun Restaurants() {
 }
 
 @Composable
-fun RestaurantRow(restaurant: Restaurant) {
+fun RestaurantRow(restaurants: List<Restaurant>) {
     Column(modifier = Modifier.padding(8.dp)) {
-        Text(
-            text = restaurant.name,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(restaurant.menu) { dish ->
-                DishCard(dish)
+            items(restaurants) { restaurant ->
+                RestaurantCard(restaurant)
             }
         }
     }
@@ -150,21 +158,13 @@ fun RestaurantCard(restaurant: Restaurant) {
             Text(text = restaurant.description, style = MaterialTheme.typography.bodySmall)
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(onClick = { showToast(dish.name) }) {
-                Text(text = "Agregar al carrito")
+            Button(onClick = { }) {
+                Text(text = "Navegar a tienda")
             }
         }
     }
 }
 
-//Implementación del Toast
-@Composable
-fun showToast(dishName: String) {
-    val context = LocalContext.current
-    LaunchedEffect(dishName) {
-        Toast.makeText(context, "$dishName agregado al carrito", Toast.LENGTH_SHORT).show()
-    }
-}
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)

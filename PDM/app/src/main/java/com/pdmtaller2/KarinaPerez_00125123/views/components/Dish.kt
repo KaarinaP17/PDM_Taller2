@@ -10,7 +10,7 @@ fun DishCard(
     name: String,
     description: String,
     imageUrl: String,
-    onAddClick: () -> Unit
+    onAddClick: @Composable () -> Unit
 ) {
     Card(
         modifier = Modifier

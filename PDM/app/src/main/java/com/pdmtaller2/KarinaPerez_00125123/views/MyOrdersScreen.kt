@@ -12,7 +12,11 @@ import com.pdmtaller2.KarinaPerez_00125123.views.components.BottomBar
 import com.pdmtaller2.KarinaPerez_00125123.views.components.TitleComponent
 
 @Composable
-fun MyOrdersScreen() {
+fun MyOrdersScreen(
+    onRestaurant: ()->Unit = {},
+    onMyOrders: ()->Unit = {},
+    onSearch: ()->Unit = {}
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -23,7 +27,10 @@ fun MyOrdersScreen() {
         },
         bottomBar = {
             BottomBar(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp),
+                onHome = onRestaurant,
+                onSearch = onSearch,
+                onMyOrders = onMyOrders
             )
         },
         content = { innerPadding ->
