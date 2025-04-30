@@ -44,7 +44,8 @@ fun TitleComponent(
             if (needBack)
                 Text(
                     "<", modifier = Modifier
-                        .padding(horizontal = 8.dp)
+                        .padding(horizontal = 16.dp)
+                        .width(24.dp)
                         .clickable { onBack() }, color = Color.Black
                 )
             Spacer(modifier = Modifier.width(6.dp))
